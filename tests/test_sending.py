@@ -143,8 +143,10 @@ class TestSendEngine(unittest.TestCase):
     
     def test_handle_sack(self):
         """Test SACK message handling."""
-        # Create test file and start send
-        test_data = b"Test SACK handling functionality"
+        # Create test file with enough data for multiple chunks
+        # With chunk_size=100, we need >100 bytes to get multiple chunks
+        # Create 500 bytes to ensure we have at least 5 chunks
+        test_data = b"X" * 500
         test_file = tempfile.NamedTemporaryFile(delete=False)
         test_file.write(test_data)
         test_file.close()
@@ -153,10 +155,15 @@ class TestSendEngine(unittest.TestCase):
             dest_addr = ("127.0.0.1", 5001)
             bundle_id = self.send_engine.send_file(test_file.name, "dest-node", dest_addr)
             
+            send_state = self.send_engine.active_sends[bundle_id]
+            # With window_size=4, initial window sends chunks 0-3
+            # Total chunks should be 5 (500 bytes / 100 bytes per chunk)
+            self.assertEqual(send_state.total_chunks, 5)
+            
             # Reset mock to count new calls
             self.network_send_mock.reset_mock()
             
-            # Simulate SACK for first chunk
+            # Simulate SACK for first chunk only
             sack_msg = make_sack_msg(bundle_id, [0])
             
             self.send_engine.handle_sack(sack_msg, dest_addr)
@@ -166,7 +173,7 @@ class TestSendEngine(unittest.TestCase):
             self.assertIn(0, send_state.acked_chunks)
             self.assertEqual(send_state.window_start, 1)  # Should advance
             
-            # Should have sent more chunks (window advancement)
+            # Window should now be [1, 5), so chunk 4 should be sent
             self.assertTrue(self.network_send_mock.called)
             
         finally:

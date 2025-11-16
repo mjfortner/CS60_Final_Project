@@ -101,13 +101,13 @@ Each message uses efficient binary serialization for network transmission.
 
 ```bash
 # Run all tests
-python -m pytest tests/ -v
+python3 -m pytest tests/ -v
 
 # Run with coverage
-python -m pytest tests/ --cov=courier --cov-report=html
+python3 -m pytest tests/ --cov=courier --cov-report=html
 
 # Run specific test file
-python tests/test_sending.py
+python3 tests/test_sending.py
 
 # Run in Docker environment
 cd docker/

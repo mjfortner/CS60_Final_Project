@@ -6,13 +6,13 @@ A reliable file transfer system built on UDP with support for disruption toleran
 
 Courier implements part 1 of the CS60 project specification, focusing on the **Send/Control Path** which includes:
 
-- ✅ CLI interface for send, recv, status commands
-- ✅ Node orchestration with event loop management  
-- ✅ SendEngine with chunking, windowing, ACK handling, and retransmissions
-- ✅ NetworkIO for UDP socket communication and message serialization
-- ✅ Storage layer with SQLite persistence
-- ✅ Configuration management system
-- ✅ Unit tests for sending functionality
+- CLI interface for send, recv, status commands
+- Node orchestration with event loop management  
+- SendEngine with chunking, windowing, ACK handling, and retransmissions
+- NetworkIO for UDP socket communication and message serialization
+- Storage layer with SQLite persistence
+- Configuration management system
+- Unit tests for sending functionality
 
 ## Project Structure
 
