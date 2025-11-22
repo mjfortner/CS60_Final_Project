@@ -1,0 +1,25 @@
+node:
+  port: 5000
+  node_id: "localhost"
+
+transfer:
+  chunk_size: 1150
+  window_size: 256
+  base_rto_ms: 250
+  ttl_sec: 300
+  max_rto_ms: 5000    
+  pacing_delay_ms: 5   
+
+fec:
+  enabled: false
+  k: 4
+  r: 2
+
+custody:
+  max_retries: 10
+  backoff_base_sec: 2
+
+storage:
+  db_path: null
+  cleanup_interval_sec: 60
+  max_bytes: null     
