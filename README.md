@@ -9,7 +9,13 @@
 
 ---
 
-## Prerequisites
+- CLI interface for send, recv, status commands
+- Node orchestration with event loop management  
+- SendEngine with chunking, windowing, ACK handling, and retransmissions
+- NetworkIO for UDP socket communication and message serialization
+- Storage layer with SQLite persistence
+- Configuration management system
+- Unit tests for sending functionality
 
 Ensure you are inside the `courier-project` folder.
 
